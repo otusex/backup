@@ -58,7 +58,7 @@ borg create --stats --list borg@borg-server:MyBorgRepo::"MyFirstBackup-{now:%Y-%
 Можем с клиента посмотреть наши бэкапы командой:
 borg list borg@borg-server:MyBorgRepo:
 MyFirstBackup-2021-01-18_00:03:32    Tue, 2021-01-18 00:03:33 [0f0bf875a2eec9674d7dcb1d5303e69bc6a863edc99cebda3479349d0ea45e26]
-MyFirstBackup-2021-01-18_02:25:28    Wed, 2021-01-18 02:25:28 [2d5feb4f1eb414c282191ebc0b7cc5e1345456fef508a6506599ed9c750ade62]
+MyFirstBackup-2021-01-18_02:25:28    Tue, 2021-01-18 02:25:28 [2d5feb4f1eb414c282191ebc0b7cc5e1345456fef508a6506599ed9c750ade62]
 
 
 Можем посмотреть расширенную информацию командой 
