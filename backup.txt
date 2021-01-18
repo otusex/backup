@@ -57,8 +57,8 @@ borg create --stats --list borg@borg-server:MyBorgRepo::"MyFirstBackup-{now:%Y-%
 
 Можем с клиента посмотреть наши бэкапы командой:
 borg list borg@borg-server:MyBorgRepo:
-MyFirstBackup-2021-01-17_23:03:32    Tue, 2021-01-17 23:03:33 [0f0bf875a2eec9674d7dcb1d5303e69bc6a863edc99cebda3479349d0ea45e26]
-MyFirstBackup-2021-01-18_00:25:28    Wed, 2021-01-18 00:25:28 [2d5feb4f1eb414c282191ebc0b7cc5e1345456fef508a6506599ed9c750ade62]
+MyFirstBackup-2021-01-18_00:03:32    Tue, 2021-01-18 00:03:33 [0f0bf875a2eec9674d7dcb1d5303e69bc6a863edc99cebda3479349d0ea45e26]
+MyFirstBackup-2021-01-18_02:25:28    Wed, 2021-01-18 02:25:28 [2d5feb4f1eb414c282191ebc0b7cc5e1345456fef508a6506599ed9c750ade62]
 
 
 Можем посмотреть расширенную информацию командой 
@@ -78,7 +78,7 @@ Chunk index:                     412                 2916
 
 
 Можем посмотреть какие файлы есть в конкретной резервной копии командой 
-borg list borg@borg-server:MyBorgRepo::MyFirstBackup-2019-10-01_23:03:32
+borg list borg@borg-server:MyBorgRepo::MyFirstBackup-2021-01-18_00:03:32
 
 Отличительной особенностью Borg Backup является то что:
 
@@ -89,10 +89,10 @@ borg list borg@borg-server:MyBorgRepo::MyFirstBackup-2019-10-01_23:03:32
 4. При восстановлении резервной копии необходимо учитывать под каким пользователем восстаналиваются файлы, так как владелец и группа назначаются того пользователя, под каким происходит процесс восстановления
 
 Достать файл из резервной копии можно слудующей командой 
-borg extract borg@borg-server:MyBorgRepo::MyFirstBackup-2019-10-01_23:03:32 etc/hostname
+borg extract borg@borg-server:MyBorgRepo::MyFirstBackup-2021-01-18_00:03:32 etc/hostname
 
 Извлечь весь архив
-borg extract borg@borg-server:MyBorgRepo::MyFirstBackup-2019-10-01_23:03:32
+borg extract borg@borg-server:MyBorgRepo::MyFirstBackup-2021-01-18_00:03:32
 
 
 Для того чтобы очищать старые бэкапы можно воспользоваться командой
@@ -103,8 +103,8 @@ borg prune --verbose --list -d 30  borg@borg-server:MyBorgRepo --prefix MyFirstB
  т.е. для разных можно задать разный период очистки:
 
 [borg@borg-client ~]$ borg prune --verbose --list -d 30  borg@borg-server:MyBorgRepo --prefix MyFirstBackup
-Keeping archive: MyFirstBackup-2021-01-18_00:25:28    Wed, 2021-01-18 00:25:28 [2d5feb4f1eb414c282191ebc0b7cc5e1345456fef508a6506599ed9c750ade62]
-Keeping archive: MyFirstBackup-2021-01-17_23:03:32    Tue, 2021-01-17 23:03:33 [0f0bf875a2eec9674d7dcb1d5303e69bc6a863edc99cebda3479349d0ea45e26]
+Keeping archive: MyFirstBackup-2021-01-18_02:25:28    Wed, 2021-01-18 02:25:28 [2d5feb4f1eb414c282191ebc0b7cc5e1345456fef508a6506599ed9c750ade62]
+Keeping archive: MyFirstBackup-2021-01-18_00:03:32    Tue, 2021-01-18 00:03:33 [0f0bf875a2eec9674d7dcb1d5303e69bc6a863edc99cebda3479349d0ea45e26]
 
 
 Также можно воспользоваться командой для указания сколько времени хранить архивы 
@@ -215,7 +215,7 @@ Incremental    Backup    10  18-Jan-21 16:51    Backup configs incremental serve
 Incremental    Backup    10  18-Jan-21 17:01    Backup configs incremental server 1 Vol0001
 Differential   Backup    10  18-Jan-21 17:05    Backup configs differential server 1 Vol0001
 Incremental    Backup    10  18-Jan-21 17:11    Backup configs incremental server 1 Vol0001
-Full           Backup    10  18-Jan-21 02:00    Backup configs full server 1 Vol0001
+Full           Backup    10  18-Jan-22 02:00    Backup configs full server 1 Vol0001
 ====
 
 Running Jobs:
