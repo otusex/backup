@@ -103,7 +103,7 @@ borg prune --verbose --list -d 30  borg@borg-server:MyBorgRepo --prefix MyFirstB
  т.е. для разных можно задать разный период очистки:
 
 [borg@borg-client ~]$ borg prune --verbose --list -d 30  borg@borg-server:MyBorgRepo --prefix MyFirstBackup
-Keeping archive: MyFirstBackup-2021-01-18_02:25:28    Wed, 2021-01-18 02:25:28 [2d5feb4f1eb414c282191ebc0b7cc5e1345456fef508a6506599ed9c750ade62]
+Keeping archive: MyFirstBackup-2021-01-18_02:25:28    Tue, 2021-01-18 02:25:28 [2d5feb4f1eb414c282191ebc0b7cc5e1345456fef508a6506599ed9c750ade62]
 Keeping archive: MyFirstBackup-2021-01-18_00:03:32    Tue, 2021-01-18 00:03:33 [0f0bf875a2eec9674d7dcb1d5303e69bc6a863edc99cebda3479349d0ea45e26]
 
 
@@ -114,11 +114,11 @@ borg prune --verbose --keep-within 2d  borg@borg-server:MyBorgRepo
 Еще можно например сохранить ежеминутные бэкапы в течении 100 минут командой
 borg prune -v --list --dry-run --keep-minutely=100  borg@borg-server:MyBorgRepo
 
-Keeping archive: MyFirstBackup3-2021-01-18_02:28:48   Thu, 2019-10-10 02:28:49 [7b64bf7a8680ce478cc99428260b3cc4c36de10fccbd5b9fad7a0cb44d14f416]
-Keeping archive: MyFirstBackup4-2021-01-18_02:24:58   Thu, 2021-01-18 02:24:59 [e5d54912ded6f0718d66a5da5c56edfdde3ea2eea22a55c24201880b7c348fb7]
-Would prune:     MyFirstBackup4-2021-01-18_02:24:56   Thu, 2021-01-18 02:24:57 [2a09b5275e1a958fa660b0d86efa51919a10ef87948ed6f3da3e777f75cc669b]
-Would prune:     MyFirstBackup4-2021-01-18_02:24:54   Thu, 2021-01-18 02:24:54 [17fd0c947b12f556647103f5419ddb5e7f994341ce2ee703917f24ae711af2c5]
-Keeping archive: MyFirstBackup4-2021-01-18_02:18:25   Thu, 2021-01-18 02:18:26 [8262cda01b6d9ce979922bdc4f6581511da2430bb5f24beda2a20d0191c29372]
+Keeping archive: MyFirstBackup3-2021-01-18_02:28:48   Tue, 2019-10-10 02:28:49 [7b64bf7a8680ce478cc99428260b3cc4c36de10fccbd5b9fad7a0cb44d14f416]
+Keeping archive: MyFirstBackup4-2021-01-18_02:24:58   Tue, 2021-01-18 02:24:59 [e5d54912ded6f0718d66a5da5c56edfdde3ea2eea22a55c24201880b7c348fb7]
+Would prune:     MyFirstBackup4-2021-01-18_02:24:56   Tue, 2021-01-18 02:24:57 [2a09b5275e1a958fa660b0d86efa51919a10ef87948ed6f3da3e777f75cc669b]
+Would prune:     MyFirstBackup4-2021-01-18_02:24:54   Tue, 2021-01-18 02:24:54 [17fd0c947b12f556647103f5419ddb5e7f994341ce2ee703917f24ae711af2c5]
+Keeping archive: MyFirstBackup4-2021-01-18_02:18:25   Tue, 2021-01-18 02:18:26 [8262cda01b6d9ce979922bdc4f6581511da2430bb5f24beda2a20d0191c29372]
 
 
 Эта команда с ключом --dry-run не удалит архивы, а покажет что удалит команда без этого ключа, т.е. это как бы эмуляция удаления.
@@ -166,7 +166,6 @@ Enter to keep the current selection[+], or type selection number:
 mysql -u root
 create database bacula;
 grant all on 'bacula'.* to 'bacula'@'localhost' identified by 'bacula';
-```
 
 После чего можно создать необходимые таблице в созданное базе данных командой /usr/libexec/bacula/make_mysql_tables
 
@@ -174,24 +173,6 @@ grant all on 'bacula'.* to 'bacula'@'localhost' identified by 'bacula';
 yum install -y bacula-client
 
 После чего привести конфигурационные файлы к определенному виду и на сервере и на клиенте для того чтобы все заработало. На клиенте также необходимо сделать так чтобы агент стартовал автоматически. Конфигурационные файлы во вложении. Пароли, в конфигурационных файлах должны быть одинаковыми на клиенте и на сервере, т.е. чтобы подключиться клиенту к серверу, необходим правильный пароль например указан к директору.
-
-- Также стоит учесть что Bacula использует для своей работы несколько сетевых портов:
-
-[root@borg-server ~]# ss -tpna
-State       Recv-Q Send-Q                                               Local Address:Port                                                              Peer Address:Port              
-LISTEN      0      50                                                               *:3306                                                                         *:*                   users:(("mysqld",pid=2808,fd=14))
-LISTEN      0      50                                                               *:9101                                                                         *:*                   users:(("bacula-dir",pid=2532,fd=4))
-LISTEN      0      50                                                               *:9102                                                                         *:*                   users:(("bacula-fd",pid=2533,fd=3))
-LISTEN      0      50                                                               *:9103                                                                         *:*                   users:(("bacula-sd",pid=2541,fd=3))
-LISTEN      0      128                                                              *:111                                                                          *:*                   users:(("rpcbind",pid=2066,fd=4),("systemd",pid=1,fd=35))
-LISTEN      0      128                                                              *:22                                                                           *:*                   users:(("sshd",pid=2537,fd=3))
-LISTEN      0      100                                                      127.0.0.1:25                                                                           *:*                   users:(("master",pid=2829,fd=13))
-ESTAB       0      0                                                        10.0.2.15:22                                                                    10.0.2.2:42320               users:(("sshd",pid=4991,fd=3),("sshd",pid=4988,fd=3))
-LISTEN      0      128                                                             :::111                                                                         :::*                   users:(("rpcbind",pid=2066,fd=6),("systemd",pid=1,fd=37))
-LISTEN      0      128                                                             :::22                                                                          :::*                   users:(("sshd",pid=2537,fd=4))
-LISTEN      0      100                                                            ::1:25                                                                          :::*                   users:(("master",pid=2829,fd=14))
-
-
 
 Теперь выполнив команду bconsole мы можем увидеть:
 
